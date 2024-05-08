@@ -20,7 +20,7 @@ Gets a single document from firebase, returns as json data to be converted to Da
 
 Gets list of documents from firebase, returns a String List of documents in specified path
 
-**WriteDoc()*
+**WriteDoc()**
 
 *NewWriteDoc<T>(object data, string path, string docId, PostDocCallback callback)*
 
