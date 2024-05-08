@@ -10,19 +10,19 @@ Used to sign in to firebase
 
 **GetDoc()**
 
-* *NewGetDoc<T>(string path, string doc, GetDocCallback callback)* *
-* 
+*NewGetDoc<T>(string path, string doc, GetDocCallback callback)*
+ 
 Gets a single document from firebase, returns as json data to be converted to Data Structure of your choosing
 
 **GetDocs()**
 
-* *GetDocs(string path, GetDocIDsCallback callback)* *
+*GetDocs(string path, GetDocIDsCallback callback)*
 
 Gets list of documents from firebase, returns a String List of documents in specified path
 
 **WriteDoc()*
 
-* *NewWriteDoc<T>(object data, string path, string docId, PostDocCallback callback)* *
+*NewWriteDoc<T>(object data, string path, string docId, PostDocCallback callback)*
 
 Creates or Updates specified document using past data.
 
