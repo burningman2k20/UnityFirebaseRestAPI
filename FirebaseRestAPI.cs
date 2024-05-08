@@ -89,52 +89,7 @@ public class FirebaseRestAPI//  : MonoBehaviour
         public Dictionary<string, object> fields;
     }
 
-    // public void SignIn()
-    // {
-    //     StartCoroutine(SignInWithEmailPassword(email, password));
-    //     // StartCoroutine(GetDocumentList(authToken));
-    //     StartCoroutine(GetDoc());
-    // }
-
-    // public void GetDocList(){
-    //     StartCoroutine(GetDocumentList());
-    // }
-
-    public void WriteDoc(){
-    
-    // string jsonData = "{{\"name\" : \"something\",\"fields\" : {\"name\" : \"some name\"}}";
-    DocumentData doc = new DocumentData();
-    doc.name = "some name";
-    doc.message = "nothing to see here man";
-    JObject json = new();
-    string documentId = "no-user";
-    json["name"] = $"{dbUrl}/users/{documentId}";
-    json["fields"] = getObj(new JObject() , doc);
-    Debug.Log("getObj() Method return value\n" + json.ToString());
-
-    NewWriteDoc<DocumentData>(doc,"users","no-user", (response) =>{
-            Debug.Log(response);
-    });
-    return;
-        // StartCoroutine(WriteDocument("users",JsonConvert.SerializeObject(json),onComplete: (response) =>
-        //     {
-        //         if (response) {
-        //             Debug.Log("Document written successfully:");
-        //         }else{
-        //             Debug.Log("Document not written:");
-        //         }
-        //         // Debug.Log(response);
-        //         // JObject json = JObject.Parse(response);
-
-        //         // ParseFirebaseJSON(json);
-            
-        //     }, onFailure: (response) =>{
-        //             Debug.Log(response);
-        //     }   
-        //     ));
-    }
-
-    // Method to create a stringValue JSON object
+      // Method to create a stringValue JSON object
     private JObject CreateStringValue(string key, string value) {
         JObject stringValueJson = new JObject();
         JObject json = new JObject();
@@ -462,10 +417,6 @@ public static void NewWriteDoc<T>(object data, string path, string docId, PostDo
 
 
 
-        // var path = $"/databases/(default)/documents/users/{userId}";
-
-// projects/{projectId}/databases/{databaseId}/documents
-// projects/{projectId}/databases/{databaseId}/documents/{userId}
         RequestHelper req = new RequestHelper {
             Uri = $"{baseUrl}/{path}/{doc}",
             Method = "GET",
@@ -654,12 +605,6 @@ public static void NewWriteDoc<T>(object data, string path, string docId, PostDo
                 JObject mapValue = (JObject)value["mapValue"]["fields"];
                 Dictionary<string, object> nestedFields = ParseMapValue(mapValue);
                 fields[key] = nestedFields;
-                // Print the parsed fields
-                // Debug.Log("Key: " + key);
-                // foreach (var pair in nestedFields) {
-                //     // fields[key] = ReturnValues(pair.Key, (JObject)JToken.FromObject(pair.Value ));
-                //     Debug.Log(pair.Key + ": " + pair.Value);
-                // }
             }
 
              if (value["arrayValue"] != null) {
@@ -728,53 +673,6 @@ public static void NewWriteDoc<T>(object data, string path, string docId, PostDo
         }
     }
 
-// "N0SRMIG6CzaCo53dsJozGp4rTD93"
-    // public IEnumerator  GetDoc(){
-    //     return;
-    //     // yield return StartCoroutine(GetDocument("users", 
-        // "no-user" , 
-        //     onSuccess: (response) =>
-        //     {
-        //         Debug.Log("Document retrieved successfully:");
-        //         Debug.Log(response);
-        //         JObject json = JObject.Parse(response);
-                
-        //         Debug.Log(json.ToObject<DocumentData>().GetType().ToString());
-
-        //         ParseFirebaseJSON(json);
-            
-        //     },
-        //     onFailure: (error) =>
-        //     {
-        //         Debug.LogError("Failed to retrieve document:");
-        //         Debug.LogError(error);
-        //     }));
-    // }
-
-    // public IEnumerator OldWriteDocument(string collectionPath, string _jsonData, Action<bool> onComplete, Action<string> onFailure)
-    // {
-    //     string url = $"{baseUrl}/{collectionPath}?key={apiKey}";
-    //     UnityWebRequest request = new UnityWebRequest(url, "POST");
-    //     string jsonData = JsonConvert.SerializeObject(_jsonData);
-    //     byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
-    //     request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-    //     request.downloadHandler = new DownloadHandlerBuffer();
-    //     request.SetRequestHeader("Content-Type", "application/json");
-
-    //     yield return request.SendWebRequest();
-
-    //     if (request.result == UnityWebRequest.Result.Success){
-    //         onComplete?.Invoke(true);
-    //     }
-    //      else
-    //     {
-    //         onFailure?.Invoke(request.error);
-    //     }
-       
-
-    
-    //     onComplete?.Invoke(request.result == UnityWebRequest.Result.Success);
-    // }
 
     public void NewSignIn(string email, string password, SignInCallback callback, bool signup = false)
     {
@@ -887,92 +785,6 @@ public static void NewWriteDoc<T>(object data, string path, string docId, PostDo
                 
             });
     }
-
-    // IEnumerator SignInWithEmailPassword(string email, string password)
-    // {
-    //     string url = $"{authBaseUrl}:signInWithPassword?key={apiKey}";
-
-    //     Dictionary<string, string> signInData = new Dictionary<string, string>()
-    //     {
-    //         { "email", email },
-    //         { "password", password },
-    //         { "returnSecureToken", "true" }
-    //     };
-
-    //     string jsonRequestBody = JsonConvert.SerializeObject(signInData);
-    //     //JsonUtility.ToJson(signInData);
-    // // Debug.Log(jsonRequestBody);
-    //     // UnityWebRequest request = new UnityWebRequest.Post(url,jjsonRequestBody);
-
-    //     using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
-    //     {
-    //         // UnityWebRequest.SerializeSimpleForm(signInData);
-    //         byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonRequestBody);
-    //         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-    //         request.downloadHandler = new DownloadHandlerBuffer();
-    //         request.SetRequestHeader("Content-Type", "application/json");
-
-    //         yield return request.SendWebRequest();
-
-    //         if (request.result == UnityWebRequest.Result.Success)
-    //         {
-    //             string responseBody = request.downloadHandler.text;
-    //             SignInResponse response = JsonUtility.FromJson<SignInResponse>(responseBody);
-                
-    //             Debug.Log("Sign-in successful. User ID: " + response.localId);
-    //             userID = response.localId;
-    //             Debug.Log("ID token: " + response.idToken);
-
-    //             authToken = response.idToken;
-    //             Debug.Log("Refresh token: " + response.refreshToken);
-    //         }
-    //         else
-    //         {
-    //             authToken = "";
-    //             userID = "";
-    //             Debug.LogError("Sign-in failed: " + request.error);
-    //             Debug.Log(request.downloadHandler.text);
-    //         }
-    //     }
-    // }
-
-    //   public void UpdateDocument(string newName, string newMessage)
-    // {
-    //     // StartCoroutine(UpdateDocumentCoroutine(newName, newMessage));
-    // }
-
-    // IEnumerator UpdateDocumentCoroutine(string newName, string newMessage)
-    // {
-    //     string url = $"{baseUrl}/{collectionPath}/{documentId}?updateMask.fieldPaths=name,message&key={apiKey}";
-
-    //     DocumentData updatedData = new DocumentData
-    //     {
-    //         name = newName,
-    //         message = newMessage
-    //     };
-
-    //     string jsonData = JsonConvert.SerializeObject(updatedData);
-        
-    //     using (UnityWebRequest request = new UnityWebRequest(url, "PATCH"))
-    //     {
-    //         byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
-    //         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-    //         request.downloadHandler = new DownloadHandlerBuffer();
-    //         request.SetRequestHeader("Content-Type", "application/json");
-
-    //         yield return request.SendWebRequest();
-
-    //         if (request.result == UnityWebRequest.Result.Success)
-    //         {
-    //             Debug.Log("Document updated successfully.");
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError("Failed to update document:");
-    //             Debug.LogError(request.error);
-    //         }
-    //     }
-    // }
 }
 
  [Serializable]
