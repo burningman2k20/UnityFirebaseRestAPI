@@ -13,6 +13,7 @@ which is freely available and updated, and RestClient, which is freely available
 *SignIn() & SignInWithEmailPassword()*
 
 *SignInWithEmailPassword(string email, string password)* WOrking for authorizing sign in
+
 *NewSignIn(string email, string password, SignInCallback callback, bool signup = false)* Not Working at the moment
 
 Used to sign in to firebase
