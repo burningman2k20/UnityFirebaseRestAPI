@@ -5,11 +5,15 @@ which is freely available and updated, and RestClient, which is freely available
 
 ***Tested with Unity 2022.3.21f***
 
+***NewSignIn method doesnt seem to be registering the sign in. other SignInWithEmailPassword and corresponding SignIn method does. Not sure why. Will be looking into it***
+
 ## Methods included
 
 **SignIn()**
+*SignIn() & SignInWithEmailPassword()*
 
-*NewSignIn(string email, string password, SignInCallback callback, bool signup = false)*
+*SignInWithEmailPassword(string email, string password)* WOrking for authorizing sign in
+*NewSignIn(string email, string password, SignInCallback callback, bool signup = false)* Not Working at the moment
 
 Used to sign in to firebase
 
