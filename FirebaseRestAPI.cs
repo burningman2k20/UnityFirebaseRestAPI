@@ -65,10 +65,10 @@ public class FirebaseRestAPI//  : MonoBehaviour
     private static string authToken = "";
     private string userID = "";
     private const string authBaseUrl = "https://identitytoolkit.googleapis.com/v1/accounts";
-     private const string projectId = "tut-gdev"; // You can find this in your Firebase project settings
+     private const string projectId = "YOUR_PROJECT_ID"; // You can find this in your Firebase project settings
     private const string baseUrl = "https://firestore.googleapis.com/v1/projects/" + projectId +"/databases/(default)/documents";
     private const string dbUrl = "projects/" + projectId + "/databases/(default)/documents";
-    private const string apiKey = "AIzaSyCwp0ZEbl3zqk6Kku7rSUim-i-VPhJ7qt0";
+    private const string apiKey = "YOUR_API_KEY;
 
     public string email;
     public string password;
