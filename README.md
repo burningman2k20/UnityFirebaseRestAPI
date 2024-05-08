@@ -3,6 +3,8 @@ Basic libray of methods for Unity to acesss firebase using its REST API. Has met
 Best part is **EVERYTHING** is done with Rest API. No firebase sdk needed. Only Librarys you need are Newtonsoft JSON .NET,
 which is freely available and updated, and RestClient, which is freely available on the Unity Asset Store.
 
+***Tested with Unity 2022.3.21f***
+
 ## Methods included
 
 **SignIn()**
