@@ -785,6 +785,62 @@ public static void NewWriteDoc<T>(object data, string path, string docId, PostDo
                 
             });
     }
+
+     public void SignIn()
+    {
+        StartCoroutine(SignInWithEmailPassword(email, password));
+        // StartCoroutine(GetDocumentList(authToken));
+        // StartCoroutine(GetDoc());
+    }
+
+
+        IEnumerator SignInWithEmailPassword(string email, string password)
+    {
+        string url = $"{authBaseUrl}:signInWithPassword?key={apiKey}";
+
+        Dictionary<string, string> signInData = new Dictionary<string, string>()
+        {
+            { "email", email },
+            { "password", password },
+            { "returnSecureToken", "true" }
+        };
+
+        string jsonRequestBody = JsonConvert.SerializeObject(signInData);
+        //JsonUtility.ToJson(signInData);
+    // Debug.Log(jsonRequestBody);
+        // UnityWebRequest request = new UnityWebRequest.Post(url,jjsonRequestBody);
+
+        using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
+        {
+            // UnityWebRequest.SerializeSimpleForm(signInData);
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                string responseBody = request.downloadHandler.text;
+                SignInResponse response = JsonUtility.FromJson<SignInResponse>(responseBody);
+                
+                Debug.Log("Sign-in successful. User ID: " + response.localId);
+                userID = response.localId;
+                Debug.Log("ID token: " + response.idToken);
+
+                authToken = response.idToken;
+                Debug.Log("Refresh token: " + response.refreshToken);
+            }
+            else
+            {
+                authToken = "";
+                userID = "";
+                Debug.LogError("Sign-in failed: " + request.error);
+                Debug.Log(request.downloadHandler.text);
+            }
+        }
+    }
 }
 
  [Serializable]
